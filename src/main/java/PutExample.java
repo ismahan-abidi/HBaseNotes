@@ -16,12 +16,17 @@ public class PutExample {
         config.addResource("/home/kouki/Documents/hbase-2.2.4/conf/hbase-site.xml");
         Connection connection = ConnectionFactory.createConnection(config);
         Table table = connection.getTable(TableName.valueOf("ismahen_table"));
-        String rowKey = "aa" ;
+        String rowKey = "dd" ;
+        //String rowKey2 ="bb" ;
 
         // Put a single row into the table. We could also pass a list of Puts to write a batch.
         Put put = new Put(Bytes.toBytes(rowKey));
-        put.addColumn("personal_data".getBytes(), "name".getBytes(), "ismahan".getBytes());
+        Put put2 = new Put(Bytes.toBytes(rowKey));
+       // put.addColumn("personal_data".getBytes(), "name".getBytes(), "ismahan".getBytes());
+        put.addColumn("personal_data".getBytes(), "name".getBytes(), "asiya".getBytes());
+        put2.addColumn("personal_data".getBytes(), "first_name".getBytes(), "kouki".getBytes());
         table.put(put);
+        table.put(put2);
 
     }
 }
