@@ -8,25 +8,25 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
-// see https://cloud.google.com/bigtable/docs/samples-hbase-java-hello?hl=fr
-public class PutExample {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PutLIstExample {
     public static void main(String[] args) throws IOException {
         Configuration config = HBaseConfiguration.create();
         //uniquement quant on travail en mode standalone
         config.addResource("/home/kouki/Documents/hbase-2.2.4/conf/hbase-site.xml");
         Connection connection = ConnectionFactory.createConnection(config);
         Table table = connection.getTable(TableName.valueOf("ismahen_table"));
-        String rowKey = "cc" ;
-        //String rowKey2 ="bb" ;
-
-        // Put a single row into the table. We could also pass a list of Puts to write a batch.
-        Put put = new Put(Bytes.toBytes(rowKey));
-        Put put2 = new Put(Bytes.toBytes(rowKey));
-       // put.addColumn("personal_data".getBytes(), "name".getBytes(), "ismahan".getBytes());
-        put.addColumn("personal_data".getBytes(), "name".getBytes(), "abdel".getBytes());
-        put2.addColumn("personal_data".getBytes(), "first_name".getBytes(), "kouki".getBytes());
-        table.put(put);
-        table.put(put2);
-
+        List<Put> listPut = new ArrayList<Put>();
+        for (int i = 0 ; i<50 ; i++){
+            Put put = new Put(Bytes.toBytes("rowKey-"+ i));
+            put.addColumn("personal_data".getBytes(), "name".getBytes(),Bytes.toBytes("value-name-"+i));
+            put.addColumn("personal_data".getBytes(), "first_name".getBytes(), Bytes.toBytes("first-name-value-"+i));
+            listPut.add(put) ;
+        }
+       table.put(listPut);
+        table.close();
+        connection.close();
     }
 }
