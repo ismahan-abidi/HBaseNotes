@@ -1,0 +1,23 @@
+#  création d'un name space: c'est l'equivalent d'un ebase de donneé dans les SGBD cad c'est un ensemble des tables
+create_namespace 'name_space1'
+# création d'une table
+create 'name_space1:client' , 'cf1' , 'cf2', 'cf3'
+# activation d'une table
+enable 'name_space1:client'
+# verifier si une table est activée
+is_enabled 'name_space1:client'
+# désactivation d'un etable
+disable 'name_space1:client'
+# vérifier si une table est désactivée
+is_disabled 'name_space1:client'
+# supprimer une table
+# avant de suprimer une table il faut la désactiver
+disable  'name_space1:client'
+drop 'name_space1:client'
+# ajout d'un column family
+alter 'name_space1:client', {NAME=> 'cf4'}
+# pour changer le nombre des versions d'un column family
+
+
+
+
