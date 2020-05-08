@@ -17,6 +17,27 @@ drop 'name_space1:client'
 # ajout d'un column family
 alter 'name_space1:client', {NAME=> 'cf4'}
 # pour changer le nombre des versions d'un column family
+alter 'ismahen_table', {NAME => 'personal_data', VERSIONS => 4}
+alter 'name_space1:client', {NAME => 'cf2', VERSIONS => 4}
+describe 'name_space1:client'
+# vérifier si une table existe ou non
+exists 'name_space1:client'
+# pour sortir de la base de donnée Hbase on tape
+exit ou ctr C
+#ajout et mise à jour des donnés (par exemple pour changer la valeur de la cellule avec put)
+put ‘name_space1:client',’row ’,'Column family:column name',’new value’
+#lire une donnée
+get ’name_space1:client’,’row1’
+#pour suprimer une cellule spécifique
+delete ‘name_space1:client’, ‘<row>’, ‘<column name >’, time stamp
+#pour voir tout les données de la table
+scan 'name_space1:client'
+#pur compter le nombre de ligne de la table
+count 'name_space1:client'
+#pour désactivé et réecrire une table vide
+trancate 'name_space1:client'
+
+
 
 
 
